@@ -1,0 +1,95 @@
+---
+import '../styles/tesla.css';
+
+// Cada sección a pantalla completa. Cambia textos, imágenes o botones aquí.
+const panels = [
+  { id: 'model-s', title: 'Model S', subtitle: 'Concertar una prueba de conducción hoy', image: '/img/model-s.jpg', theme: 'light', buttons: [{ label: 'Pedido personalizado', style: 'ghost' }, { label: 'Saber más', style: 'ghost' }] },
+  { id: 'model-3', title: 'Model 3', subtitle: 'Concertar una prueba de conducción hoy', image: '/img/model-3.jpg', theme: 'light', buttons: [{ label: 'Pedido personalizado', style: 'ghost' }, { label: 'Saber más', style: 'ghost' }] },
+  { id: 'model-x', title: 'Model X', subtitle: 'Concertar una prueba de conducción hoy', image: '/img/model-x.jpg', theme: 'light', buttons: [{ label: 'Pedido personalizado', style: 'ghost' }, { label: 'Saber más', style: 'ghost' }] },
+  { id: 'model-y', title: 'Model Y', subtitle: 'Concertar una prueba de conducción hoy', image: '/img/model-y.jpg', theme: 'light', buttons: [{ label: 'Explorar inventario', style: 'ghost' }, { label: 'Pedido personalizado', style: 'ghost' }] },
+  { id: 'solar', title: 'Solar y Powerwall', subtitle: 'Energía para todos', image: '/img/solar.jpg', theme: 'light', buttons: [{ label: 'Saber más', style: 'ghost' }] },
+  { id: 'accesorios', title: 'Accesorios', subtitle: '', image: '/img/wallbox.jpg', theme: 'light', contain: true, buttons: [{ label: 'Comprar ahora', style: 'light' }] },
+];
+
+const navCenter = [
+  { label: 'Model S', href: '#model-s' },
+  { label: 'Model 3', href: '#model-3' },
+  { label: 'Model X', href: '#model-x' },
+  { label: 'Model Y', href: '#model-y' },
+  { label: 'Powerwall', href: '#solar' },
+  { label: 'Carga', href: '#accesorios' },
+];
+const navRight = ['Soporte', 'Tienda', 'Cuenta'];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tesla | Vehículos eléctricos, Solar y Powerwall</title>
+    <meta name="description" content="Landing page inspirada en Tesla: Model S, 3, X, Y, Solar y Powerwall." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="nav nav--dark" id="nav">
+      <a class="nav__logo" href="#inicio" aria-label="Tesla">TESLA</a>
+
+      <nav class="nav__center" aria-label="Modelos">
+        {navCenter.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+
+      <nav class="nav__right" aria-label="Cuenta">
+        {navRight.map((l) => <a href="#">{l}</a>)}
+        <button class="nav__menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menú</button>
+      </nav>
+    </header>
+
+    <aside class="menu" id="menu" aria-hidden="true">
+      <button class="menu__close" id="menuClose" aria-label="Cerrar menú">✕</button>
+      <ul>
+        {navCenter.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        {navRight.map((l) => <li><a href="#">{l}</a></li>)}
+      </ul>
+    </aside>
+
+    <main>
+      <!-- HERO -->
+      <section class="panel panel--hero" id="inicio" data-theme="dark">
+        <video class="panel__video" autoplay muted loop playsinline poster="/img/hero.jpg">
+          <source src="/img/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="panel__head">
+          <h1>Disfrute de Tesla</h1>
+          <p>Programe una prueba de conducción hoy mismo</p>
+        </div>
+        <div class="panel__cta">
+          <a class="btn btn--solid" href="#model-s">Prueba de conducción</a>
+        </div>
+      </section>
+
+      {panels.map((p) => (
+        <section
+          class:list={['panel', { 'panel--contain': p.contain }]}
+          id={p.id}
+          data-theme={p.theme}
+          style={`--bg: url('${p.image}')`}
+        >
+          <div class="panel__head">
+            <h2>{p.title}</h2>
+            {p.subtitle && <p>{p.subtitle}</p>}
+          </div>
+          <div class="panel__cta">
+            {p.buttons.map((b) => <a class={`btn btn--${b.style}`} href="#">{b.label}</a>)}
+          </div>
+        </section>
+      ))}
+    </main>
+
+    <script>
+      import '../scripts/tesla.js';
+    </script>
+  </body>
+</html>
